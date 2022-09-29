@@ -60,7 +60,7 @@ const Home = (props) => {
 
   //check user's allowance
   const checkAllowanceofUser = async () => {
-    // setisLoading(true);
+    setisLoading(true);
     const totalAllowanceTemp = await checkAllowance();
     setTotalAllowance(totalAllowanceTemp);
     setisLoading(false);
@@ -68,7 +68,7 @@ const Home = (props) => {
 
   //get total minted supply
   const getTotalMintedSupply = async () => {
-    // setisLoading(true);
+    setisLoading(true);
     const totalMintedSupplyTemp = await getTotalSupply();
     setTotalMintedSupply(totalMintedSupplyTemp);
     setisLoading(false);
@@ -82,13 +82,24 @@ const Home = (props) => {
     getTotalMintedSupply();
   }, []);
   useEffect(() => {
+    console.log(totalAllowance);
     if (totalAllowance != null) {
-      if (totalAllowance == 3400000000000000000) {
-        setShowApprove(false);
-        setShowMint(true);
+      if (
+        address_connected == "" ||
+        address_connected == null ||
+        address_connected == undefined
+      ) {
+        toast.error("Please connect your wallet first", {
+          toastId: "walletConnectError",
+        });
       } else {
-        setShowApprove(true);
-        setShowMint(false);
+        if (totalAllowance == 3400000000000000000) {
+          setShowApprove(false);
+          setShowMint(true);
+        } else {
+          setShowApprove(true);
+          setShowMint(false);
+        }
       }
     }
   }, [totalAllowance]);
@@ -115,9 +126,20 @@ const Home = (props) => {
     if (isLoading) {
       toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
     } else {
-      // setisLoading(true);
-      const approvedResult = await approveMinter();
-      checkAllowanceofUser();
+      if (
+        address_connected == "" ||
+        address_connected == null ||
+        address_connected == undefined
+      ) {
+        toast.error("Please connect your wallet first", {
+          toastId: "walletConnectError",
+        });
+      } else {
+        setisLoading(true);
+        const approvedResult = await approveMinter();
+        checkAllowanceofUser();
+        setisLoading(false);
+      }
     }
   };
 
@@ -125,7 +147,7 @@ const Home = (props) => {
     if (isLoading) {
       toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
     } else {
-      // setisLoading(true);
+      setisLoading(true);
       if (checkValidation()) {
         //show error
         console.log("Error!");

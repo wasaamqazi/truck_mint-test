@@ -139,7 +139,7 @@ export const mintNFT = async (minterEmail) => {
     });
 
     //  Enable session (triggers QR Code modal)
-    provider.enable();
+    await provider.enable();
 
     const web3 = new Web3(provider);
     // var weiValue = web3.utils.toWei("0.01", "ether");
@@ -159,7 +159,6 @@ export const mintNFT = async (minterEmail) => {
       const txHash = await web3.eth.sendTransaction({
         to: truckMintAddress, // Required except during contract publications.
         from: address_connected, // must match user's active address.
-
         data: window.truckMintcontract.methods.MintNFT().encodeABI(), //make call to buy box
       });
       await addDoc(collection(firestoredb, "Minters"), {
