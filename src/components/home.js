@@ -42,7 +42,6 @@ const Home = (props) => {
   const [address_connected, setAddressConnected] = useState("");
   const getCurrrentConnectAddress = async () => {
     const currentConnectedAddress = await getConnectedAddress();
-    console.log(currentConnectedAddress);
     setAddressConnected(currentConnectedAddress);
   };
   useEffect(() => {
@@ -72,7 +71,6 @@ const Home = (props) => {
     // setisLoading(true);
     const totalMintedSupplyTemp = await getTotalSupply();
     setTotalMintedSupply(totalMintedSupplyTemp);
-    console.log(totalMintedSupplyTemp);
     setisLoading(false);
   };
 
@@ -119,7 +117,6 @@ const Home = (props) => {
     } else {
       // setisLoading(true);
       const approvedResult = await approveMinter();
-      console.log(approvedResult);
       checkAllowanceofUser();
     }
   };
@@ -137,7 +134,6 @@ const Home = (props) => {
       } else {
         //Mint here
         await mintNFT(minterEmail);
-        console.log("Minted");
         setisLoading(false);
       }
     }
@@ -461,7 +457,7 @@ const Home = (props) => {
                           {padLeadingZeros(totalMintedSupply, 4)}/1000
                         </h3>
                       </div>
-                      <div className="price-wrap">price: 0.33</div>
+                      <div className="price-wrap">price: 0.33 WETH</div>
                       <div className="currentdate">
                         Date: 10/9/2022, 11:59:00 PM
                         {/* Date: {new Date().toLocaleString() + ""} */}
@@ -545,12 +541,12 @@ const Home = (props) => {
                       Date: N/A
                       {/* Date: {new Date().toLocaleString() + ""} */}
                     </div>
-                    <div
+                    {/* <div
                       style={{ visibility: "hidden" }}
                       className="textbox-email"
                     >
                       <input type="email" placeholder="Email:" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -588,12 +584,12 @@ const Home = (props) => {
                       Date: N/A
                       {/* Date: {new Date().toLocaleString() + ""} */}
                     </div>
-                    <div
+                    {/* <div
                       style={{ visibility: "hidden" }}
                       className="textbox-email"
                     >
                       <input type="email" placeholder="Email:" />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
