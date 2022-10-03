@@ -434,10 +434,10 @@ const Home = (props) => {
               <div className="loader">
                 <Spinner
                   animation="border"
-                  style={{ width: "50px", height: "50px" }}
+                  style={{ width: "70px", height: "70px",borderRightColor: "#f647e5" }}
                   isGrow
                 />
-                <span style={{ fontSize: "30px" }}>Loading...</span>
+                <span className="customLoadingText">Loading...</span>
               </div>
             </>
           )}

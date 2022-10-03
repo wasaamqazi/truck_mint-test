@@ -1157,12 +1157,18 @@ svg.icons.icon3.iconify.iconify--bxl > :nth-child(1) {
 .loader {
   bottom: 50%;
   position: fixed;
-  right: 47%;
+  right: 40%;
   /* left: 50%; */
   color: #ffffff;
-  border-radius: 50%;
-  width: 130px;
-  height: 130px;
-
+  /* border-radius: 50%; */
+  width: 300px;
+  height: 60px;
   z-index: 999;
+}
+.customLoadingText {
+  font-family: Agressive;
+  font-weight: 900;
+  color: white;
+  font-size: 30px;
+  text-shadow: 0 0 13px #f647e5, 0 0 1px #0ae1ef;
 }
