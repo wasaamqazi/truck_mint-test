@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import logo from "../assets/imgs/logo.webp";
 import "../App.css";
 import ScrollSpy from "react-ui-scrollspy";
@@ -7,6 +7,8 @@ import hamburger from "../assets/imgs/icons/hamburger.png";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Header = () => {
+  const [address_connected, setAddressConnected] = useState("");
+
   const hamCtrl = () => {
     console.log("Clicked");
     let element = document.getElementById("nav-ctrl");
@@ -93,13 +95,13 @@ const Header = () => {
                       // can remove all 'authenticationStatus' checks
                       const ready =
                         mounted && authenticationStatus !== "loading";
+
                       const connected =
                         ready &&
                         account &&
                         chain &&
                         (!authenticationStatus ||
                           authenticationStatus === "authenticated");
-
                       return (
                         <div
                           {...(!ready && {
@@ -126,8 +128,8 @@ const Header = () => {
 
                             return (
                               <div style={{ display: "flex", gap: 12 }}>
-                                <button className="nav-items mint-btn "
-                                   
+                                <button
+                                  className="nav-items mint-btn "
                                   type="button"
                                 >
                                   {account.displayName}

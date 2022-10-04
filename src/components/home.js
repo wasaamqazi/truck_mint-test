@@ -37,8 +37,10 @@ import {
 import { toast } from "react-toastify";
 import validator from "validator";
 import Spinner from "react-bootstrap/Spinner";
+import { useAccount } from "wagmi";
 
 const Home = (props) => {
+  const { address } = useAccount();
   const [address_connected, setAddressConnected] = useState("");
   const getCurrrentConnectAddress = async () => {
     const currentConnectedAddress = await getConnectedAddress();
@@ -75,20 +77,17 @@ const Home = (props) => {
   };
 
   useEffect(() => {
+    console.log(address);
+    // console.log(address_connected);
     checkAllowanceofUser();
-  }, [address_connected]);
+  }, [address]);
 
   useEffect(() => {
     getTotalMintedSupply();
   }, []);
   useEffect(() => {
-    console.log(totalAllowance);
     if (totalAllowance != null) {
-      if (
-        address_connected == "" ||
-        address_connected == null ||
-        address_connected == undefined
-      ) {
+      if (address == "" || address == null || address == undefined) {
         toast.error("Please connect your wallet first", {
           toastId: "walletConnectError",
         });
@@ -126,11 +125,7 @@ const Home = (props) => {
     if (isLoading) {
       toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
     } else {
-      if (
-        address_connected == "" ||
-        address_connected == null ||
-        address_connected == undefined
-      ) {
+      if (address == "" || address == null || address == undefined) {
         toast.error("Please connect your wallet first", {
           toastId: "walletConnectError",
         });
@@ -138,7 +133,9 @@ const Home = (props) => {
         setisLoading(true);
         const approvedResult = await approveMinter();
         checkAllowanceofUser();
-        setisLoading(false);
+        setTimeout(() => {
+          setisLoading(false);
+        }, 10000);
       }
     }
   };
@@ -434,7 +431,11 @@ const Home = (props) => {
               <div className="loader">
                 <Spinner
                   animation="border"
-                  style={{ width: "70px", height: "70px",borderRightColor: "#f647e5" }}
+                  style={{
+                    width: "70px",
+                    height: "70px",
+                    borderRightColor: "#f647e5",
+                  }}
                   isGrow
                 />
                 <span className="customLoadingText">Loading...</span>
