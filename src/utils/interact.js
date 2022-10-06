@@ -47,7 +47,7 @@ export const getConnectedAddress = async () => {
     const provider = new WalletConnectProvider({
       rpc: {
         80001:
-          "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb",
+        RPC_URL,
       },
     });
     //  Enable session (triggers QR Code modal)
@@ -111,8 +111,9 @@ export const mintNFT = async (minterEmail) => {
         from: address_connected, // must match user's active address.
         data: window.truckMintcontract.methods.MintNFT().encodeABI(), //make call to buy box
       });
-      await addDoc(collection(firestoredb, "Minters"), {
+      await addDoc(collection(firestoredb, "TruckMintEmails"), {
         minterEmail: minterEmail,
+        mintTime: new Date(),
       })
         .then(async (docRef) => {
           window.location.reload();
@@ -134,7 +135,7 @@ export const mintNFT = async (minterEmail) => {
     const provider = new WalletConnectProvider({
       rpc: {
         80001:
-          "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb",
+        RPC_URL,
       },
     });
 
@@ -215,7 +216,7 @@ export const checkAllowance = async () => {
     const provider = new WalletConnectProvider({
       rpc: {
         80001:
-          "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb",
+        RPC_URL,
       },
     });
 
@@ -284,7 +285,7 @@ export const approveMinter = async () => {
     const provider = new WalletConnectProvider({
       rpc: {
         80001:
-          "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb",
+        RPC_URL,
       },
     });
 
