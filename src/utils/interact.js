@@ -46,9 +46,9 @@ export const getConnectedAddress = async () => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001:
-        RPC_URL,
+        80001: RPC_URL,
       },
+      qrcode: false,
     });
     //  Enable session (triggers QR Code modal)
     await provider.enable();
@@ -134,9 +134,8 @@ export const mintNFT = async (minterEmail) => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001:
-        RPC_URL,
-      },
+        80001: RPC_URL,
+      }, qrcode: false,
     });
 
     //  Enable session (triggers QR Code modal)
@@ -215,9 +214,8 @@ export const checkAllowance = async () => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001:
-        RPC_URL,
-      },
+        80001: RPC_URL,
+      }, qrcode: false,
     });
 
     //  Enable session (triggers QR Code modal)
@@ -284,9 +282,8 @@ export const approveMinter = async () => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001:
-        RPC_URL,
-      },
+        80001: RPC_URL,
+      }, qrcode: false,
     });
 
     //  Enable session (triggers QR Code modal)

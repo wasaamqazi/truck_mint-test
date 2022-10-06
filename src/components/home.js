@@ -78,6 +78,7 @@ const Home = (props) => {
 
   useEffect(() => {
     console.log(address);
+
     // console.log(address_connected);
     checkAllowanceofUser();
   }, [address]);
