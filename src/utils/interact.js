@@ -161,8 +161,9 @@ export const mintNFT = async (minterEmail) => {
         from: address_connected, // must match user's active address.
         data: window.truckMintcontract.methods.MintNFT().encodeABI(), //make call to buy box
       });
-      await addDoc(collection(firestoredb, "Minters"), {
+      await addDoc(collection(firestoredb, "TruckMintEmails"), {
         minterEmail: minterEmail,
+        mintTime: new Date(),
       })
         .then(async (docRef) => {
           window.location.reload();

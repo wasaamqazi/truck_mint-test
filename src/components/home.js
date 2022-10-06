@@ -480,7 +480,7 @@ const Home = (props) => {
                           {padLeadingZeros(totalMintedSupply, 4)}/1000
                         </h3>
                       </div>
-                      <div className="price-wrap">price: 0.33 WETH</div>
+                      <div className="price-wrap">price: 0.34 WETH</div>
                       <div className="currentdate">
                         Date: 10/9/2022, 11:59:00 PM
                         {/* Date: {new Date().toLocaleString() + ""} */}
