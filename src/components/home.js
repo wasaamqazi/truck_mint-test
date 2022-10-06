@@ -92,7 +92,7 @@ const Home = (props) => {
           toastId: "walletConnectError",
         });
       } else {
-        if (totalAllowance == 3400000000000000000) {
+        if (totalAllowance == 340000000000000000) {
           setShowApprove(false);
           setShowMint(true);
         } else {

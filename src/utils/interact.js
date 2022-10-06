@@ -253,7 +253,7 @@ export const approveMinter = async () => {
     var address_connected = "";
 
     // var weiValue = web3.utils.toWei("0.34", "ether");
-    var valueWETH = "3400000000000000000";
+    var valueWETH = "340000000000000000";
 
     await web3.eth.getAccounts().then((res) => {
       address_connected = res[0];
@@ -293,7 +293,7 @@ export const approveMinter = async () => {
     const web3 = new Web3(provider);
 
     var address_connected = "";
-    var valueWETH = "3400000000000000000";
+    var valueWETH = "340000000000000000";
 
     await web3.eth.getAccounts().then((res) => {
       address_connected = res[0];
