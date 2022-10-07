@@ -17,7 +17,9 @@ import { firestoredb } from "../firebase/firebase";
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 
 const RPC_URL =
-  "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb";
+  "https://polygon-mainnet.g.alchemy.com/v2/VogGgwpNhdrqobnh5kxDBGeRkzCqWqxB";
+// const RPC_URL =
+//   "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb";
 const current_chainId = 80001;
 const web3 = createAlchemyWeb3(RPC_URL);
 
@@ -47,7 +49,7 @@ export const getConnectedAddress = async () => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001: RPC_URL,
+        137: RPC_URL,
       },
       qrcode: false,
     });
@@ -89,7 +91,7 @@ export const getConnectedAddress = async () => {
 //     //  Create WalletConnect Provider
 //     const provider = new WalletConnectProvider({
 //       rpc: {
-//         80001: RPC_URL,
+//         137: RPC_URL,
 //       },
 //       qrcode: false,
 //     });
@@ -177,7 +179,7 @@ export const mintNFT = async (minterEmail) => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001: RPC_URL,
+        137: RPC_URL,
       },
       qrcode: false,
     });
@@ -258,7 +260,7 @@ export const checkAllowance = async () => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001: RPC_URL,
+        137: RPC_URL,
       },
       qrcode: false,
     });
@@ -327,7 +329,7 @@ export const approveMinter = async () => {
     //  Create WalletConnect Provider
     const provider = new WalletConnectProvider({
       rpc: {
-        80001: RPC_URL,
+        137: RPC_URL,
       },
       qrcode: false,
     });

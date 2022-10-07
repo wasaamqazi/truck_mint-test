@@ -39,7 +39,8 @@ import validator from "validator";
 import Spinner from "react-bootstrap/Spinner";
 import { useAccount, useNetwork } from "wagmi";
 
-const current_chainId = 80001;
+// const current_chainId = 80001;
+const current_chainId = 137;
 
 const Home = (props) => {
   const { address } = useAccount();
@@ -144,13 +145,16 @@ const Home = (props) => {
           }
         }
       } else {
-        toast.warning("Please connect to Mumbai Testnet. Use Connect Wallet button on top", {
-          toastId: "wrongChainId",
-        });
+        toast.warning(
+          "Please connect to Polygon Mainnet. Use Connect Wallet button on top",
+          {
+            toastId: "wrongChainId",
+          }
+        );
       }
     } else {
       toast.warning(
-        "Please connect to Mumbai Testnet. Use Connect Wallet button on top",
+        "Please connect to Polygon Mainnet. Use Connect Wallet button on top",
         {
           toastId: "wrongChainId",
         }
@@ -177,13 +181,16 @@ const Home = (props) => {
           }
         }
       } else {
-        toast.warning("Please connect to Mumbai Testnet. Use Connect Wallet button on top", {
-          toastId: "wrongChainId",
-        });
+        toast.warning(
+          "Please connect to Polygon Mainnet. Use Connect Wallet button on top",
+          {
+            toastId: "wrongChainId",
+          }
+        );
       }
     } else {
       toast.warning(
-        "Please connect to Mumbai Testnet. Use Connect Wallet button on top",
+        "Please connect to Polygon Mainnet. Use Connect Wallet button on top",
         {
           toastId: "wrongChainId",
         }
@@ -465,8 +472,8 @@ const Home = (props) => {
                 <Spinner
                   animation="border"
                   style={{
-                    width: "70px",
-                    height: "70px",
+                    width: "60px",
+                    height: "60px",
                     borderRightColor: "#f647e5",
                   }}
                   isGrow
