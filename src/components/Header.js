@@ -102,6 +102,7 @@ const Header = () => {
                         chain &&
                         (!authenticationStatus ||
                           authenticationStatus === "authenticated");
+
                       return (
                         <div
                           {...(!ready && {

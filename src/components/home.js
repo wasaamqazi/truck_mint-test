@@ -37,10 +37,14 @@ import {
 import { toast } from "react-toastify";
 import validator from "validator";
 import Spinner from "react-bootstrap/Spinner";
-import { useAccount } from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
+
+const current_chainId = 80001;
 
 const Home = (props) => {
   const { address } = useAccount();
+  const { chain } = useNetwork();
+
   const [address_connected, setAddressConnected] = useState("");
   const getCurrrentConnectAddress = async () => {
     const currentConnectedAddress = await getConnectedAddress();
@@ -77,15 +81,13 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    console.log(address);
-
-    // console.log(address_connected);
     checkAllowanceofUser();
   }, [address]);
 
   useEffect(() => {
     getTotalMintedSupply();
   }, []);
+
   useEffect(() => {
     if (totalAllowance != null) {
       if (address == "" || address == null || address == undefined) {
@@ -123,39 +125,69 @@ const Home = (props) => {
     return errorOccurs;
   }
   const onApprovePressed = async () => {
-    if (isLoading) {
-      toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
-    } else {
-      if (address == "" || address == null || address == undefined) {
-        toast.error("Please connect your wallet first", {
-          toastId: "walletConnectError",
-        });
+    if (chain) {
+      if (chain.id == current_chainId) {
+        if (isLoading) {
+          toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
+        } else {
+          if (address == "" || address == null || address == undefined) {
+            toast.error("Please connect your wallet first", {
+              toastId: "walletConnectError",
+            });
+          } else {
+            setisLoading(true);
+            const approvedResult = await approveMinter();
+            checkAllowanceofUser();
+            setTimeout(() => {
+              setisLoading(false);
+            }, 10000);
+          }
+        }
       } else {
-        setisLoading(true);
-        const approvedResult = await approveMinter();
-        checkAllowanceofUser();
-        setTimeout(() => {
-          setisLoading(false);
-        }, 10000);
+        toast.warning("Please connect to Mumbai Testnet. Use Connect Wallet button on top", {
+          toastId: "wrongChainId",
+        });
       }
+    } else {
+      toast.warning(
+        "Please connect to Mumbai Testnet. Use Connect Wallet button on top",
+        {
+          toastId: "wrongChainId",
+        }
+      );
     }
   };
 
   const onMintPressed = async () => {
-    if (isLoading) {
-      toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
-    } else {
-      setisLoading(true);
-      if (checkValidation()) {
-        //show error
-        console.log("Error!");
-        setisLoading(false);
-        toast.error("Please enter valid email", { toastId: "emailError" });
+    if (chain) {
+      if (chain.id == current_chainId) {
+        if (isLoading) {
+          toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
+        } else {
+          setisLoading(true);
+          if (checkValidation()) {
+            //show error
+            console.log("Error!");
+            setisLoading(false);
+            toast.error("Please enter valid email", { toastId: "emailError" });
+          } else {
+            //Mint here
+            await mintNFT(minterEmail);
+            setisLoading(false);
+          }
+        }
       } else {
-        //Mint here
-        await mintNFT(minterEmail);
-        setisLoading(false);
+        toast.warning("Please connect to Mumbai Testnet. Use Connect Wallet button on top", {
+          toastId: "wrongChainId",
+        });
       }
+    } else {
+      toast.warning(
+        "Please connect to Mumbai Testnet. Use Connect Wallet button on top",
+        {
+          toastId: "wrongChainId",
+        }
+      );
     }
   };
   const ChangingImages1 = () => {
