@@ -154,6 +154,7 @@ export const mintNFT = async (minterEmail) => {
       const txHash = await web3.eth.sendTransaction({
         to: truckMintAddress, // Required except during contract publications.
         from: address_connected, // must match user's active address.
+        maxPriorityFeePerGas: 40000000000,
         data: window.truckMintcontract.methods.MintNFT().encodeABI(), //make call to buy box
       });
       await addDoc(collection(firestoredb, "TruckMintEmails"), {
@@ -205,6 +206,7 @@ export const mintNFT = async (minterEmail) => {
       const txHash = await web3.eth.sendTransaction({
         to: truckMintAddress, // Required except during contract publications.
         from: address_connected, // must match user's active address.
+        maxPriorityFeePerGas: 40000000000,
         data: window.truckMintcontract.methods.MintNFT().encodeABI(), //make call to buy box
       });
       await addDoc(collection(firestoredb, "TruckMintEmails"), {
@@ -315,6 +317,7 @@ export const approveMinter = async () => {
       const txHash = await web3.eth.sendTransaction({
         to: truckTokenAddress, // Required except during contract publications.
         from: address_connected, // must match user's active address.
+        maxPriorityFeePerGas: 40000000000,
         data: window.truckTokenContract.methods
           .approve(truckMintAddress, valueWETH)
           .encodeABI(), //make call to buy box
@@ -355,6 +358,7 @@ export const approveMinter = async () => {
       const txHash = await web3.eth.sendTransaction({
         to: truckTokenAddress, // Required except during contract publications.
         from: address_connected, // must match user's active address.
+        maxPriorityFeePerGas: 40000000000,
         data: window.truckTokenContract.methods
           .approve(truckMintAddress, valueWETH)
           .encodeABI(), //make call to buy box
