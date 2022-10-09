@@ -291,11 +291,10 @@ const Home = (props) => {
               <div className="col-sm-6 col-6">
                 <div className="text-wrapper">
                   <h2 className="first-tit">
-                    Going Digital
                     <br />
                     Introducing the Future<br></br> of Trucking Via Web3
                   </h2>
-                  <h3 className="second-tit">Introducing Web3 Trucking</h3>
+                  {/* <h3 className="second-tit">Introducing Web3 Trucking</h3> */}
                   <p className="text hideonmob" style={{ fontWeight: "bold" }}>
                     <br />
                     Introducing Blockchain Trucking
@@ -351,8 +350,8 @@ const Home = (props) => {
                     </div>
                     <p className="text">
                       Our entire fleet of freight vehicles has been commissioned
-                      by tesla trucks. We exhibit a wide array of models ranging
-                      from fuel-run to fully electric trucks. Our tesla trucks
+                      by Autonomous EV trucks. We exhibit a wide array of models ranging
+                      from fuel-run to fully electric trucks. Our Autonomous EV trucks
                       are perfectly suitable for the long miles covered for
                       cargo transportation. Their damage-resistant exteriors can
                       withstand the long-term weathering that occurs from
@@ -492,15 +491,19 @@ const Home = (props) => {
                         1st Sale
                       </h3>
                       <div className="timer first-timer">
-                        <Countdown
+                        <span>
+                          Mint Now
+                        </span>
+
+                        {/* <Countdown
                           onComplete={() => window.location.reload(false)}
                           date={new Date(parseInt(1665316799) * 1000)}
-                        />
+                        /> */}
                         {/* <span style={{ width: "250px" }}>
                           {timeLeft.days}:{timeLeft.hours}:{timeLeft.minutes}:
                           {timeLeft.seconds}
                         </span> */}
-                        <div className="titles-wrapper">
+                        {/* <div className="titles-wrapper">
                           <div className="time-tits">
                             <h3 className="day-tit">Day</h3>
                           </div>
@@ -513,8 +516,9 @@ const Home = (props) => {
                           <div className="time-tits">
                             <h3 className="day-tit">Sec</h3>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
+                      <br/>
                       <div className="time-tits mint-counter">
                         <h3 className="day-tit">
                           {padLeadingZeros(totalMintedSupply, 4)}/1000
@@ -522,7 +526,7 @@ const Home = (props) => {
                       </div>
                       <div className="price-wrap">price: 0.34 WETH</div>
                       <div className="currentdate">
-                        Date: 10/9/2022, 11:59:00 PM
+                        Mint Date: 10/9/2022
                         {/* Date: {new Date().toLocaleString() + ""} */}
                       </div>
                       {showMint && !showApprove ? (
@@ -783,7 +787,7 @@ const Home = (props) => {
                   <h2 className="privatesale"> NFT Marketplace</h2>
                   <p className="text benifits">
                     Truck Mint provides its audience exclusive ownership of
-                    tesla truck NFTs.
+                    Autonomous EV truck NFTs.
                     <br />
                     <br />
                     With rare attributes and traits; the market value of our
