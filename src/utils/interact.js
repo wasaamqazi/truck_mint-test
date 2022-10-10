@@ -21,6 +21,7 @@ const RPC_URL =
 // const RPC_URL =
 //   "https://polygon-mumbai.g.alchemy.com/v2/4PVWbySpmDFT8D4d3T8PcFlCDPRUqehb";
 const current_chainId = 80001;
+const polygon_chainId = 137;
 const web3 = createAlchemyWeb3(RPC_URL);
 
 // const web3 = new Web3(provider);
@@ -76,11 +77,11 @@ export const getConnectedAddress = async () => {
 // export const getConnectedChainId = async () => {
 //   if (window.ethereum) {
 //     var chainId_connected = "";
-   
+
 //     try {
 //       await web3.eth.getChainId().then((res) => {
 //         chainId_connected = res;
-        
+
 //       });
 //       return chainId_connected;
 //     } catch (err) {
@@ -230,7 +231,70 @@ export const mintNFT = async (minterEmail) => {
     }
   }
 };
+export const checkAssetBalance = async () => {
+  if (window.ethereum) {
+    var address_connected = "";
 
+    await web3.eth.getAccounts().then((res) => {
+      address_connected = res[0];
+    });
+
+    try {
+      window.truckTokenContract = await new web3.eth.Contract(
+        truckTokenABI,
+        truckTokenAddress
+      );
+
+      const balanceOf = await window.truckTokenContract.methods
+        .balanceOf(address_connected)
+        .call();
+      console.log(balanceOf);
+
+      return balanceOf;
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
+  } else {
+    //  Create WalletConnect Provider
+    const provider = new WalletConnectProvider({
+      rpc: {
+        137: RPC_URL,
+      },
+      qrcode: false,
+    });
+
+    //  Enable session (triggers QR Code modal)
+    await provider.enable();
+
+    const web3 = new Web3(provider);
+
+    var address_connected = "";
+
+    await web3.eth.getAccounts().then((res) => {
+      address_connected = res[0];
+    });
+
+    try {
+      window.truckTokenContract = await new web3.eth.Contract(
+        truckTokenABI,
+        truckTokenAddress
+      );
+
+      const balanceOf = await window.truckTokenContract.methods
+        .balanceOf(address_connected)
+        .call();
+      console.log(balanceOf);
+
+      return balanceOf;
+
+      //sign the transaction via Metamask
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
+  }
+};
 export const checkAllowance = async () => {
   if (window.ethereum) {
     var address_connected = "";

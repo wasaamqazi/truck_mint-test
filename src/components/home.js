@@ -30,6 +30,7 @@ import sound from "../assets/audio/sound.mp3";
 import {
   approveMinter,
   checkAllowance,
+  checkAssetBalance,
   getConnectedAddress,
   getTotalSupply,
   mintNFT,
@@ -61,6 +62,7 @@ const Home = (props) => {
   const [minterEmail, setMinterEmail] = useState("");
 
   const [totalAllowance, setTotalAllowance] = useState(null);
+  const [totalAssetBalance, setTotalAssetBalance] = useState(null);
   const [totalMintedSupply, setTotalMintedSupply] = useState(0);
   const [showApprove, setShowApprove] = useState(false);
   const [showMint, setShowMint] = useState(false);
@@ -70,6 +72,13 @@ const Home = (props) => {
     setisLoading(true);
     const totalAllowanceTemp = await checkAllowance();
     setTotalAllowance(totalAllowanceTemp);
+    setisLoading(false);
+  };
+  //check user's allowance
+  const checkAssetBalanceOfUser = async () => {
+    setisLoading(true);
+    const totalAssetBalanceTemp = await checkAssetBalance();
+    setTotalAssetBalance(totalAssetBalanceTemp);
     setisLoading(false);
   };
 
@@ -83,6 +92,7 @@ const Home = (props) => {
 
   useEffect(() => {
     checkAllowanceofUser();
+    checkAssetBalanceOfUser();
   }, [address]);
 
   useEffect(() => {
@@ -126,23 +136,32 @@ const Home = (props) => {
     return errorOccurs;
   }
   const onApprovePressed = async () => {
-    if (chain) {
-      if (chain.id == current_chainId) {
-        if (isLoading) {
-          toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
-        } else {
-          if (address == "" || address == null || address == undefined) {
-            toast.error("Please connect your wallet first", {
-              toastId: "walletConnectError",
-            });
+    if (totalAssetBalance > 0) {
+      if (chain) {
+        if (chain.id == current_chainId) {
+          if (isLoading) {
+            toast.warning("Please wait!", { toastId: "pleaseWaitWarning" });
           } else {
-            setisLoading(true);
-            const approvedResult = await approveMinter();
-            checkAllowanceofUser();
-            setTimeout(() => {
-              setisLoading(false);
-            }, 10000);
+            if (address == "" || address == null || address == undefined) {
+              toast.error("Please connect your wallet first", {
+                toastId: "walletConnectError",
+              });
+            } else {
+              setisLoading(true);
+              const approvedResult = await approveMinter();
+              checkAllowanceofUser();
+              setTimeout(() => {
+                setisLoading(false);
+              }, 10000);
+            }
           }
+        } else {
+          toast.warning(
+            "Please connect to Polygon Mainnet. Use Connect Wallet button on top",
+            {
+              toastId: "wrongChainId",
+            }
+          );
         }
       } else {
         toast.warning(
@@ -153,12 +172,9 @@ const Home = (props) => {
         );
       }
     } else {
-      toast.warning(
-        "Please connect to Polygon Mainnet. Use Connect Wallet button on top",
-        {
-          toastId: "wrongChainId",
-        }
-      );
+      toast.warning("You don't have enough balance", {
+        toastId: "notEnoughBalance",
+      });
     }
   };
 
@@ -350,12 +366,12 @@ const Home = (props) => {
                     </div>
                     <p className="text">
                       Our entire fleet of freight vehicles has been commissioned
-                      by Autonomous EV trucks. We exhibit a wide array of models ranging
-                      from fuel-run to fully electric trucks. Our Autonomous EV trucks
-                      are perfectly suitable for the long miles covered for
-                      cargo transportation. Their damage-resistant exteriors can
-                      withstand the long-term weathering that occurs from
-                      everyday traveling.
+                      by Autonomous EV trucks. We exhibit a wide array of models
+                      ranging from fuel-run to fully electric trucks. Our
+                      Autonomous EV trucks are perfectly suitable for the long
+                      miles covered for cargo transportation. Their
+                      damage-resistant exteriors can withstand the long-term
+                      weathering that occurs from everyday traveling.
                     </p>
                     <p className="text">
                       Each truck is unique to its owner and supports different
@@ -491,9 +507,7 @@ const Home = (props) => {
                         1st Sale
                       </h3>
                       <div className="timer first-timer">
-                        <span>
-                          Mint Now
-                        </span>
+                        <span>Mint Now</span>
 
                         {/* <Countdown
                           onComplete={() => window.location.reload(false)}
@@ -518,7 +532,7 @@ const Home = (props) => {
                           </div>
                         </div> */}
                       </div>
-                      <br/>
+                      <br />
                       <div className="time-tits mint-counter">
                         <h3 className="day-tit">
                           {padLeadingZeros(totalMintedSupply, 4)}/1000
