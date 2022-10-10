@@ -136,7 +136,7 @@ const Home = (props) => {
     return errorOccurs;
   }
   const onApprovePressed = async () => {
-    if (totalAssetBalance > 0) {
+    if (totalAssetBalance >=340000000000000000) {
       if (chain) {
         if (chain.id == current_chainId) {
           if (isLoading) {
@@ -172,7 +172,7 @@ const Home = (props) => {
         );
       }
     } else {
-      toast.warning("You don't have enough balance", {
+      toast.warning("You don't have enough WETH balance", {
         toastId: "notEnoughBalance",
       });
     }
